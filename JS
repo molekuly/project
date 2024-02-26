@@ -1,0 +1,97 @@
+function showForm() {
+    var popupForm = document.getElementById('popupForm');
+    popupForm.classList.add('active');
+    }
+
+    function hideForm() {
+    var popupForm = document.getElementById('popupForm');
+    popupForm.classList.remove('active');
+    }
+
+    function addEmployee() {
+        var district = document.getElementById('district').value;
+        var fullName = document.getElementById('fullName').value;
+        var position = document.getElementById('position').value;
+        var role = document.getElementById('role').value;
+        hideForm();
+    }
+
+const searchInput = document.getElementById('search');
+const resultsDiv = document.getElementById('results');
+
+const countries = [
+'Казаков Эрмек Токтосунович',
+'Мурзабек кызы Гулумкан',
+'Аманбаев Афтандил Алимжанович',
+'Орозбеков Рустам Бактыгулович',
+'Рысалиев Максатбек Насырынбекович',
+'Озубекова Айгуль Садырбековна',
+'Байтиков Тимур Анарбекович',
+'Акбаров Бакай Дуулатович',
+'Корчубекова Айнура Жолчубековна',
+'Рысалиев Керез Шартекбекович',
+'Абылгазиева Толкун Осконовна',
+'Супатаева Жылдыз Токталиевна',
+'Тынымсейитова  Айдана Мирлановна',
+'Шамбетов Улан Алтынбекович',
+'Осмоналиева Чынара Чыныбековна',
+'Джаныкулова Чолпон Акылбековна',
+'Бабаева Гулмира Шамырзаевна',
+'Токонова Айнура Омуровна',
+'Осмон кызы Рахат'];
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const myDiv = document.getElementById('prof');
+  const hideButton = document.getElementById('closee');
+  
+  // Скрыть "prof" при нажатии на кнопку закрытия
+  hideButton.addEventListener('click', function() {
+    myDiv.style.display = 'none';
+  });
+
+  // Показать "prof" при выборе элемента из списка "countries"
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.addEventListener('click', function(event) {
+    const selectedCountry = event.target.textContent;
+    searchInput.value = selectedCountry;
+    resultsDiv.style.display = 'none';
+    myDiv.style.display = 'block'; // Показываем "prof"
+  });
+});
+
+searchInput.addEventListener('input', function() {
+  const inputValue = searchInput.value.toLowerCase();
+  const filteredCountries = countries.filter(country => country.toLowerCase().startsWith(inputValue));
+  
+  resultsDiv.innerHTML = '';
+  
+  if (filteredCountries.length > 0) {
+    resultsDiv.style.display = 'block';
+    const ul = document.createElement('ul');
+    filteredCountries.forEach(country => {
+      const li = document.createElement('li');
+      li.textContent = country;
+      li.addEventListener('click', function() {
+        searchInput.value = country;
+        resultsDiv.style.display = 'none';
+      });
+      ul.appendChild(li);
+    });
+    resultsDiv.appendChild(ul);
+  } else {
+    resultsDiv.style.display = 'none';
+  }
+});
+
+document.addEventListener('click', function(event) {
+  if (!resultsDiv.contains(event.target) && event.target !== searchInput) {
+    resultsDiv.style.display = 'none';
+  }
+});
+const myDiv = document.getElementById('prof');
+const hideButton = document.getElementById('closee');
+
+hideButton.addEventListener('click', function() {
+  myDiv.style.display = 'none';
+});
